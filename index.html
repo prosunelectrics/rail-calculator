@@ -326,14 +326,14 @@ function calcArray(np, pw, mc, rl) {
   var totalDesc = '';
   if (fullLengths > 0 && remainder > 0) {
     var cut = (remainder * 2 <= rl) ? 1 : 2;
-    var cutNote = cut === 1 ? '1 x full length (cut 2 x ' + remainder + 'mm pieces from it)' : '2 x cut piece to ' + remainder + 'mm';
+    var cutNote = cut === 1 ? '2 x cut piece to ' + remainder + 'mm (both from 1 rail)' : '2 x cut piece to ' + remainder + 'mm';
     totalDesc = (fullLengths * 2) + ' x full lengths + ' + cutNote;
   } else if (fullLengths > 0 && remainder === 0) {
     totalDesc = (fullLengths * 2) + ' x full lengths';
   } else {
     var cut = (remainder * 2 <= rl) ? 1 : 2;
     totalDesc = cut === 1
-      ? '1 x full length (cut 2 x ' + remainder + 'mm pieces from it)'
+      ? '2 x cut piece to ' + remainder + 'mm (both from 1 rail)'
       : '2 x cut piece to ' + remainder + 'mm';
   }
 
