@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rail Calculator</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
-
-- { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
 background: #0D0D0D;
 color: #F0EDE8;
-font-family: ‘DM Mono’, monospace;
+font-family: 'Courier New', Courier, monospace;
 min-height: 100vh;
 padding: 32px 16px;
 display: flex;
@@ -22,7 +19,7 @@ align-items: center;
 }
 
 h1 {
-font-family: ‘Bebas Neue’, sans-serif;
+font-family: Impact, 'Arial Narrow', Arial, sans-serif;
 font-size: 64px;
 color: #FF6B1A;
 letter-spacing: 4px;
@@ -73,7 +70,7 @@ background: transparent;
 border: none;
 outline: none;
 color: #F0EDE8;
-font-family: ‘DM Mono’, monospace;
+font-family: 'Courier New', Courier, monospace;
 font-size: 20px;
 font-weight: 500;
 padding: 14px 16px;
@@ -97,7 +94,7 @@ margin-top: 24px;
 background: #FF6B1A;
 color: #0D0D0D;
 border: none;
-font-family: ‘Bebas Neue’, sans-serif;
+font-family: Impact, 'Arial Narrow', Arial, sans-serif;
 font-size: 24px;
 letter-spacing: 3px;
 padding: 16px;
@@ -122,7 +119,7 @@ margin-bottom: 8px;
 }
 
 .answer-value {
-font-family: ‘Bebas Neue’, sans-serif;
+font-family: Impact, 'Arial Narrow', Arial, sans-serif;
 font-size: 58px;
 color: #FF6B1A;
 line-height: 1;
@@ -163,7 +160,6 @@ text-transform: uppercase;
 text-align: center;
 }
 </style>
-
 </head>
 <body>
 
@@ -177,47 +173,44 @@ text-align: center;
     <span class="unit">mm</span>
   </div>
 
-<label>Number of Panels</label>
-
+  <label>Number of Panels</label>
   <div class="row">
     <input type="number" id="np">
     <span class="unit">panels</span>
   </div>
 
-<label>Mid Clamp Width</label>
-
+  <label>Mid Clamp Width</label>
   <div class="row">
     <input type="number" id="mc" value="20">
     <span class="unit">mm</span>
   </div>
 
-<label>Rail Length</label>
-
+  <label>Rail Length</label>
   <div class="row">
     <input type="number" id="rl" value="3600">
     <span class="unit">mm</span>
   </div>
 
-<button id="btn">CALCULATE</button>
+  <button id="btn">CALCULATE</button>
 
   <div id="result">
+
     <div class="answer">
       <div class="answer-label">Cut Rail Length</div>
       <div class="answer-value" id="total">0<small>mm</small></div>
     </div>
+
     <div class="breakdown-title">Breakdown</div>
     <div class="brow"><span class="d" id="pd">Panels</span><span class="v" id="pv">0 mm</span></div>
     <div class="brow"><span class="d" id="md">Mid clamps</span><span class="v" id="mv">0 mm</span></div>
     <div class="brow"><span class="d">50mm excess at both ends</span><span class="v">100 mm</span></div>
 
-
-<div class="breakdown-title" style="margin-top:20px;">Materials Required</div>
-<div class="brow"><span class="d">Total clamps (both rails)</span><span class="v" id="clamps">-</span></div>
-<div class="brow"><span class="d">Per row</span><span class="v" id="rails-per-row">-</span></div>
-<div class="brow"><span class="d">Total for array (both rows)</span><span class="v" id="rails-total">-</span></div>
-<div class="brow" id="joiner-row"><span class="d">Joiners per row</span><span class="v" id="joiners">-</span></div>
-<div class="brow"><span class="d">Total joiners (both rows)</span><span class="v" id="joiners-total">-</span></div>
-
+    <div class="breakdown-title" style="margin-top:20px;">Materials Required</div>
+    <div class="brow"><span class="d">Total clamps (both rails)</span><span class="v" id="clamps">-</span></div>
+    <div class="brow"><span class="d">Per row</span><span class="v" id="rails-per-row">-</span></div>
+    <div class="brow"><span class="d">Total for array (both rows)</span><span class="v" id="rails-total">-</span></div>
+    <div class="brow"><span class="d">Joiners per row</span><span class="v" id="joiners">-</span></div>
+    <div class="brow"><span class="d">Total joiners (both rows)</span><span class="v" id="joiners-total">-</span></div>
 
   </div>
 </div>
@@ -245,11 +238,10 @@ document.getElementById('btn').addEventListener('click', function() {
   document.getElementById('pv').textContent = panels.toLocaleString() + ' mm';
   document.getElementById('md').textContent = 'Clamps (' + (np + 1) + ' x ' + mc + 'mm)';
   document.getElementById('mv').textContent = mids.toLocaleString() + ' mm';
-  // Materials
+
   var clampsPerRow = np + 1;
   var totalClamps = clampsPerRow * 2;
 
-  // Work out full lengths + remainder cut piece
   var fullLengths = Math.floor(total / rl);
   var remainder = Math.round(total % rl);
   var railsPerRow = fullLengths + (remainder > 0 ? 1 : 0);
@@ -258,7 +250,6 @@ document.getElementById('btn').addEventListener('click', function() {
   var joinersPerRow = railsPerRow > 1 ? railsPerRow - 1 : 0;
   var totalJoiners = joinersPerRow * 2;
 
-  // Build rail description
   var railDesc = '';
   if (fullLengths > 0 && remainder > 0) {
     railDesc = fullLengths + ' x ' + rl + 'mm + 1 x ' + remainder + 'mm cut piece';
@@ -269,12 +260,8 @@ document.getElementById('btn').addEventListener('click', function() {
   }
 
   document.getElementById('clamps').textContent = totalClamps + ' (' + clampsPerRow + ' per rail x 2 rails)';
-
-  // Per row description
   document.getElementById('rails-per-row').textContent = railDesc + ' per row';
 
-  // Total for array — 2 rows
-  // Check if both cut pieces fit in one 3600mm length
   var totalDesc = '';
   if (fullLengths > 0 && remainder > 0) {
     var cutLengthsNeeded = (remainder * 2 <= rl) ? 1 : 2;
